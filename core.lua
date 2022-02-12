@@ -2,9 +2,16 @@ RSL = LibStub("AceAddon-3.0"):NewAddon("ZUI_RandomSongLyrics")
 local L = LibStub("AceLocale-3.0"):GetLocale("ZUI_RandomSongLyricsLocale")
 local RSL_GUI = LibStub("AceGUI-3.0")
 
+local bigdata = {
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+}
+
 local defaults = {
     realm = {
-        list = {}
+        list = bigdata
     },
 }
 
@@ -73,9 +80,17 @@ function RSL:CreateRemoveFrame()
     frame:SetPoint("CENTER", 0, -90)
     frame:SetWidth(700)
     frame:SetHeight(600)
-    frame:SetLayout("List")
+    frame:SetLayout("Fill")
     frame:SetTitle(L["Add Song Lyrics"])
     frame:SetStatusText(L["Add Song Lyrics"])
+    local scrollContainer = RSL_GUI:Create("SimpleGroup") -- "InlineGroup" is also good
+    scrollContainer:SetFullWidth(true)
+    scrollContainer:SetFullHeight(true) -- probably?
+    scrollContainer:SetLayout("Fill") -- important!
+    frame:AddChild(scrollContainer)
+    local scrollFrame = RSL_GUI:Create("ScrollFrame")
+    scrollFrame:SetLayout("List")
+    scrollContainer:AddChild(scrollFrame)
     for i, v in ipairs(RSL.db.realm.list) do
         local removeLabel = RSL_GUI:Create("InteractiveLabel")
         removeLabel:SetFullHeight(true)
@@ -86,7 +101,7 @@ function RSL:CreateRemoveFrame()
             removeLabel:SetText("")
             table.remove(RSL.db.realm.list, i)
         end)
-        frame:AddChild(removeLabel)
+        scrollFrame:AddChild(removeLabel)
     end
     frame:Hide()
 end
