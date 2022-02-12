@@ -73,8 +73,8 @@ function RSL:CreateRemoveFrame()
     frame:SetWidth(700)
     frame:SetHeight(600)
     frame:SetLayout("Fill")
-    frame:SetTitle(L["Add Song Lyrics"])
-    frame:SetStatusText(L["Add Song Lyrics"])
+    frame:SetTitle(L["Remove Song Lyrics"])
+    frame:SetStatusText(L["Remove Song Lyrics"])
     local scrollContainer = RSL_GUI:Create("SimpleGroup") -- "InlineGroup" is also good
     scrollContainer:SetFullWidth(true)
     scrollContainer:SetFullHeight(true) -- probably?
