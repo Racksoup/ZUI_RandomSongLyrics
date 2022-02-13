@@ -42,7 +42,7 @@ SlashCmdList["INFO"] = function()
 end
 
 function RSL:OnInitialize()
-    self.db = LibStub("AceDB-3.0"):New("ZUI_LickAndTickleDB", defaults, true)
+    self.db = LibStub("AceDB-3.0"):New("ZUI_RandomSongLyricsDB", defaults, true)
     RSL:CreateInputFrame()
 end
 
